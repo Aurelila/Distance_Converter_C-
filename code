@@ -1,0 +1,89 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace DistanceConverter
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+
+        private void convertButton_Click(object sender, EventArgs e)
+        {
+            int fromDistance;	// Holding the distance put in.
+            int toDistance;
+            toDistance = 0;
+            fromDistance = int.Parse(distanceInput.Text);
+		// Get the selected distance.
+            string measureInput = fromList.Items[fromList.SelectedIndex].ToString();
+            string measureOutput = toList.Items[toList.SelectedIndex].ToString();
+
+
+		// Determine the measurement.
+            switch (measureInput)
+            {
+                case "Yards":
+                    switch (measureOutput)
+                    {
+                        case "Yards":
+                            toDistance = fromDistance;
+                            break;
+                        case "Feet":
+                            toDistance = fromDistance * 3;
+                            break;
+                        case  "Inches":
+                            toDistance = fromDistance * 3 * 12;
+                            break;
+                    }
+                    break;
+                case "Feet":
+                    switch (measureOutput)
+                    {
+                        case "Feet":
+                            toDistance = fromDistance;
+                            break;
+                        case "Yards":
+                            toDistance = fromDistance / 3;
+                            break;
+                        case "Inches":
+                            toDistance = fromDistance * 12;
+                            break;
+                    }
+                    break;
+                case "Inches":
+                    switch (measureOutput)
+                    {
+                        case "Inches":
+                            toDistance = fromDistance;
+                            break;
+                        case "Feet":
+                            toDistance = fromDistance / 12;
+                            break;
+                        case "Yards":
+                            toDistance = fromDistance / (3 * 12);
+                            break;
+                    }
+                    break;
+
+            }
+            distanceOutput.Text = toDistance.ToString();
+        
+        }
+
+        private void exitButton_Click(object sender, EventArgs e)
+        {
+            // Close the form.
+            this.Close();
+        }
+    }
+}
